@@ -62,7 +62,7 @@ program EulerSolver
     call calFlux        ! calculate fluxes (f_ij & g_ij)
     call calResidual    ! calculate residual (R_ij)
 
-    print *, 'iter, Continuity, x-momentum, y-momentum, energy'
+    print "(5a12)", 'iter', 'Continuity', 'x-momentum', 'y-momentum', 'energy'
     ! iteration loop:
     do n = 1,iter
         
@@ -85,7 +85,7 @@ program EulerSolver
 
         ! print residuals to console at the specified verbose interval
         if (MOD(n,vInt) == 0) then
-            print *, n, dq_max(1), dq_max(2), dq_max(3), dq_max(4)
+            print "(i12,4es12.3)", n, dq_max(1), dq_max(2), dq_max(3), dq_max(4)
         end if
 
         ! write residuals in residuals.csv file
