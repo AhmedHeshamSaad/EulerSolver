@@ -145,7 +145,7 @@ contains
         ! write density (cell based data type)
         write(4,"(a)") ' '
         write(4,"(a10,i6)") 'CELL_DATA ', icmax*jcmax
-        write(4,"(a)") 'SCALARS rho float'
+        write(4,"(a)") 'SCALARS rho double'
         write(4,"(a)") 'LOOKUP_TABLE default'
         do j= 1,jcmax
             do i = 1,icmax
@@ -156,7 +156,7 @@ contains
         ! write pressure (cell based data type)
         write(4,"(a)") ' '
         ! write(4,"(a10,i6)") 'CELL_DATA ', icmax*jcmax
-        write(4,"(a)") 'SCALARS p float'
+        write(4,"(a)") 'SCALARS p double'
         write(4,"(a)") 'LOOKUP_TABLE default'
         do j= 1,jcmax
             do i = 1,icmax
@@ -167,7 +167,7 @@ contains
         ! write velocity vector (cell based data type)
         write(4,"(a)") ' '
         ! write(4,"(a10,i6)") 'CELL_DATA ', icmax*jcmax
-        write(4,"(a)") 'VECTORS U float'
+        write(4,"(a)") 'VECTORS U double'
         ! write(4,"(a)") 'LOOKUP_TABLE default'
         do j= 1,jcmax
             do i = 1,icmax
@@ -178,7 +178,7 @@ contains
         ! write mach number (cell based data type)
         write(4,"(a)") ' '
         ! write(4,"(a10,i6)") 'CELL_DATA ', icmax*jcmax
-        write(4,"(a)") 'SCALARS M float'
+        write(4,"(a)") 'SCALARS M double'
         write(4,"(a)") 'LOOKUP_TABLE default'
         do j= 1,jcmax
             do i = 1,icmax
