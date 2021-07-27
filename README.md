@@ -30,4 +30,4 @@ M = 0.3
 ![M = 0.3](M0p3.jpg?raw=true)
 
 M = 0.9
-![M = 0.9](M0p9.jpg?raw=true)
+![M = 0.9](M0p9_fine.jpg?raw=true)
