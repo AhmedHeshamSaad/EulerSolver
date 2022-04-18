@@ -23,11 +23,14 @@ using Runge-Kutta algorithm with 4 steps.
 ### Computational Domain:
 This project makes use of a mesh developed by previous in-house code ([StrGridBump](https://github.com/AhmedHeshamSaad/StrGridBUMP)).
 The bump is shaped like a sin function and has an amplitude of 0.1 of its length.
-The images below depict Mach contours for two inlet mach numbers of 0.3 and 0.9.
+The images below depict Mach contours for mach numbers of 0.3, 0.7 and 0.9.
 Transparent grid lines are also shwon.
 
 M = 0.3
 ![M = 0.3](M0p3.jpg?raw=true)
+
+M = 0.7
+![M = 0.7](M0p7.jpg?raw=true)
 
 M = 0.9
 ![M = 0.9](M0p9_fine.jpg?raw=true)

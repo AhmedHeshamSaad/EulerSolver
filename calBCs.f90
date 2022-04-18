@@ -9,9 +9,11 @@ subroutine calBCs
 
     ! Riem1(i=0) = Riem1(i=-inf)
     Riem1(1:jcmax) = MInf * cInf + 2.0d0 * cInf * oneByGammaM1
-    ! Riem2(i=0) = Riem2(i=1)
-    Riem2(1:jcmax) = sqrt( (q(1,1:jcmax,2)*byrho(1,1:jcmax))**2.0d0 + (q(1,1:jcmax,3)*byrho(1,1:jcmax))**2.0d0 ) &
-                    - 2.0d0 * sqrt( gamma * p(1,1:jcmax) * byrho(1,1:jcmax) ) * oneByGammaM1           
+    ! Riem2(i=0) = Riem2(i=1) (supsonic)
+    ! Riem2(1:jcmax) = sqrt( (q(1,1:jcmax,2)*byrho(1,1:jcmax))**2.0d0 + (q(1,1:jcmax,3)*byrho(1,1:jcmax))**2.0d0 ) &
+    !                 - 2.0d0 * sqrt( gamma * p(1,1:jcmax) * byrho(1,1:jcmax) ) * oneByGammaM1         
+    ! Riem2(i=0) = Riem2(i=-inf) (supersonic)
+    Riem2(1:jcmax) = MInf * cInf - 2.0d0 * cInf * oneByGammaM1 
 
     ! velocity magnitude
     V(:) = 0.50d0 * (Riem1(:) + Riem2(:))
@@ -41,7 +43,7 @@ subroutine calBCs
 
     ! epsilon at PtInf
     q(icmax+1,:,4) = pInf/gammaM1  + &
-                        0.50d0 * ( q(icmax+1,:,2)**2.0d0 + q(icmax+1,:,3)**2.0d0 ) /  q(0,:,1)
+                        0.50d0 * ( q(icmax+1,:,2)**2.0d0 + q(icmax+1,:,3)**2.0d0 ) /  q(icmax+1,:,1)
 
     ! second dummy cells equals first dummy cells                        
     q(icmax+2,:,:) = q(icmax+1,:,:)
