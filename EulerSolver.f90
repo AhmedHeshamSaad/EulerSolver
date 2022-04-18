@@ -28,7 +28,7 @@ program EulerSolver
     
     ! create new folder and cwd variable hold the path inside that folder
     call  date_and_time(dateinfo, timeinfo)
-    newDir = 'out'//dateinfo//'-'//timeinfo(1:6)
+    newDir = "Jamson-0p7"!'out'//dateinfo//'-'//timeinfo(1:6)
     call execute_command_line ('mkdir -p '//newDir)
     CALL getcwd(cwd)
     cwd = trim(cwd)//'/'//newDir

@@ -51,3 +51,6 @@ variables.o : constants.o
 clean:
 	-rm -f *.o *~ core *.mod
 
+solve:
+	make
+	./EulerSolver
