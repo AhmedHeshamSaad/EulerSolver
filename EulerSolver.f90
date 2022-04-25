@@ -28,7 +28,7 @@ program EulerSolver
     
     ! create new folder and cwd variable hold the path inside that folder
     call  date_and_time(dateinfo, timeinfo)
-    newDir = 'out'//dateinfo//'-'//timeinfo(1:6)
+    newDir = 'Richtmyer-0p7'!'out'//dateinfo//'-'//timeinfo(1:6)
     call execute_command_line ('mkdir -p '//newDir)
     CALL getcwd(cwd)
     cwd = trim(cwd)//'/'//newDir
@@ -69,8 +69,8 @@ program EulerSolver
         ! calculate dissipation (D_ij) of each cell
         call calDissipation
 
-        ! update q using Runge-kutta 4 Steps (calculate new R_ij at each stage)
-        call RK4
+        ! Richtmyer and Mortran Scheme (1967)
+        call Richtmyer
 
         ! calculate residuals of q between new time step and old step
         dq_max(1) = MAXVAL(q(1:icmax,1:jcmax,1) - q0(1:icmax,1:jcmax,1))

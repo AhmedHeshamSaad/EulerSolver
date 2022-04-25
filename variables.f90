@@ -55,6 +55,12 @@ module variables
     ! dimension(imax,jmax,4)
     real(DBLP), dimension(:,:,:), allocatable ::    q, &    ! state vector for 2D grid    
                                                     q0,&    ! old state vector    
+                                                    q_mi, &
+                                                    q_mj, &
+                                                    f_mi, &
+                                                    f_mj, &
+                                                    g_mi, &
+                                                    g_mj, &
                                                     f, &    ! fluxes' components in x direction
                                                     g, &    ! fluxes' components in y direction
                                                     R, &    ! euler residual terms
@@ -64,7 +70,10 @@ module variables
     real(DBLP), dimension(:,:), allocatable ::  p,              &   ! pressure
                                                 c,              &   ! speed of sound
                                                 A,              &   ! cell Area
-                                                byRho               ! 1 / density
+                                                byRho, &               ! 1 / density
+                                                byRho_mi, byRho_mj, &
+                                                p_mi, p_mj 
+
 
     ! real(DBLP), dimension(:,:), allocatable :: dq_max 
                                                 

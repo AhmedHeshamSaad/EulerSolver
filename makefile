@@ -27,6 +27,7 @@ SRCMAIN =      			\
 	calFlux.f90			\
 	calResidual.f90		\
 	RK4.f90				\
+	Richtmyer.f90		\
 	EulerSolver.f90
 
 OBJMOD = ${SRCMOD:.f90=.o}
@@ -51,3 +52,6 @@ variables.o : constants.o
 clean:
 	-rm -f *.o *~ core *.mod
 
+solve:
+	make
+	./EulerSolver
