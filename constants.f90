@@ -21,14 +21,14 @@ module constants
     character(*), parameter :: gridName = 'laplace grid 200x50.vtk'
     
     integer, parameter      :: DBLP = 8          ! precision
-    integer ::  iter = 100000,  &               ! number of iterations
+    integer ::  iter = 200000,  &               ! number of iterations
                 wInt = 500,  &             ! write interval 
-                vInt = 1                    ! verbose interval 
+                vInt = 500                    ! verbose interval 
 
     real(DBLP), parameter   ::  gamma = 1.4d0,          &   ! gamma
                                 rhoInf = 1.2250d0,      &   ! density at inf
                                 ptInf = 101325.0d0,     &   ! stagnation/total pressure at inf
-                                MInf = 0.70d0,          &   ! mach number at inf
+                                MInf = 1.20d0,          &   ! mach number at inf
                                 theta = 0.0d0,          &   ! incidence at inf in radians
                                 nu2 = 0.5d0,            &   ! viscosity term of second order [0 = no shock, 0.5 = shock]
                                 nu4 = 0.010d0,          &   ! 4th order viscosity term [0.001 to 0.01]

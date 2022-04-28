@@ -1,50 +1,64 @@
 subroutine calBCs
     use variables, only: q, p, icmax, jcmax, byrho, n
-    use constants, only: ptInf, pInf, MInf, theta, cInf, DBLP, gamma, gammaM1, oneByGammaM1
+    use constants, only: ptInf, pInf, MInf, theta, cInf, DBLP, gamma, gammaM1, oneByGammaM1, &
+                        rhoInf, uInf, vInf, epsInf
     implicit none
 
     real(DBLP), dimension(jcmax) :: Riem1, Riem2, V, c ! inlet
 
     !!!!!!!!!!!!! Inlet Boundary !!!!!!!!!!!!!!!!!!!!!
-
-    ! Riem1(i=0) = Riem1(i=-inf)
-    Riem1(1:jcmax) = MInf * cInf + 2.0d0 * cInf * oneByGammaM1
-    ! Riem2(i=0) = Riem2(i=1) (supsonic)
+    ! ! Riemann Problem
+    ! ! Riem1(i=0) = Riem1(i=-inf)
+    ! Riem1(1:jcmax) = MInf * cInf + 2.0d0 * cInf * oneByGammaM1
+    ! ! Riem2(i=0) = Riem2(i=1) (subsonic)
     ! Riem2(1:jcmax) = sqrt( (q(1,1:jcmax,2)*byrho(1,1:jcmax))**2.0d0 + (q(1,1:jcmax,3)*byrho(1,1:jcmax))**2.0d0 ) &
     !                 - 2.0d0 * sqrt( gamma * p(1,1:jcmax) * byrho(1,1:jcmax) ) * oneByGammaM1         
-    ! Riem2(i=0) = Riem2(i=-inf) (supersonic)
-    Riem2(1:jcmax) = MInf * cInf - 2.0d0 * cInf * oneByGammaM1 
+    ! ! ! Riem2(i=0) = Riem2(i=-inf) (supersonic)
+    ! ! Riem2(1:jcmax) = MInf * cInf - 2.0d0 * cInf * oneByGammaM1 
 
-    ! velocity magnitude
-    V(:) = 0.50d0 * (Riem1(:) + Riem2(:))
-    ! speed of sound
-    c(:) = 0.25 * gammaM1 * (Riem1(:) - Riem2(:))
+    ! ! velocity magnitude
+    ! V(:) = 0.50d0 * (Riem1(:) + Riem2(:))
+    ! ! speed of sound
+    ! c(:) = 0.25 * gammaM1 * (Riem1(:) - Riem2(:))
 
-    ! calculate pressure
-    p(0,1:jcmax) = ptInf / (( 1.0d0 + 0.50d0 * gammaM1 * (V(:)/c(:))**2.0d0 )**( gamma*oneByGammaM1 ))
-    p(-1,1:jcmax) = p(0,1:jcmax)
+    ! ! calculate pressure
+    ! p(0,1:jcmax) = ptInf / (( 1.0d0 + 0.50d0 * gammaM1 * (V(:)/c(:))**2.0d0 )**( gamma*oneByGammaM1 ))
+    ! p(-1,1:jcmax) = p(0,1:jcmax)
 
-    ! calculate state vectors
-    q(0,1:jcmax,1) = gamma * p(0,1:jcmax) / (c(:)**2.0d0)
-    q(0,1:jcmax,2) = q(0,1:jcmax,1) * V(:) * cos(theta)
-    q(0,1:jcmax,3) = q(0,1:jcmax,1) * V(:) * sin(theta)
-    q(0,1:jcmax,4) = p(0,1:jcmax)/gammaM1  + &
-                        0.50d0 * ( q(0,1:jcmax,2)**2.0d0 + q(0,1:jcmax,3)**2.0d0 ) / q(0,1:jcmax,1)
+    ! ! calculate state vectors
+    ! q(0,1:jcmax,1) = gamma * p(0,1:jcmax) / (c(:)**2.0d0)
+    ! q(0,1:jcmax,2) = q(0,1:jcmax,1) * V(:) * cos(theta)
+    ! q(0,1:jcmax,3) = q(0,1:jcmax,1) * V(:) * sin(theta)
+    ! q(0,1:jcmax,4) = p(0,1:jcmax)/gammaM1  + &
+    !                     0.50d0 * ( q(0,1:jcmax,2)**2.0d0 + q(0,1:jcmax,3)**2.0d0 ) / q(0,1:jcmax,1)
+    ! q(-1,1:jcmax,1) = q(0,1:jcmax,1)
+    ! q(-1,1:jcmax,2) = q(0,1:jcmax,2)
+    ! q(-1,1:jcmax,3) = q(0,1:jcmax,3)
+    ! q(-1,1:jcmax,4) = q(0,1:jcmax,4)
+
+    q(-1,1:jcmax,1) = rhoInf
+    q(-1,1:jcmax,2) = rhoInf * uInf
+    q(-1,1:jcmax,3) = rhoInf * vInf
+    q(-1,1:jcmax,4) = epsInf
+
     q(-1,1:jcmax,1) = q(0,1:jcmax,1)
     q(-1,1:jcmax,2) = q(0,1:jcmax,2)
     q(-1,1:jcmax,3) = q(0,1:jcmax,3)
     q(-1,1:jcmax,4) = q(0,1:jcmax,4)
 
-
-
     !!!!!!!!!!!!! Outlet Boundary !!!!!!!!!!!!!!!!!!!!!
-    ! P, m, n at all J including dummy cells
+    ! alternative of three characteristics
+    !! (subsonic)
+    ! P, m, n at all J including dummy cells (zero gradient)
     q(icmax+1,:,1:3) = 2.0d0 * q(icmax,:,1:3) - q(icmax-1,:,1:3)
 
-    ! epsilon at PtInf
-    q(icmax+1,:,4) = pInf/gammaM1  + &
-                        0.50d0 * ( q(icmax+1,:,2)**2.0d0 + q(icmax+1,:,3)**2.0d0 ) /  q(icmax+1,:,1)
+    ! ! epsilon at PtInf 
+    ! q(icmax+1,:,4) = pInf/gammaM1  + &
+    !                     0.50d0 * ( q(icmax+1,:,2)**2.0d0 + q(icmax+1,:,3)**2.0d0 ) /  q(icmax+1,:,1)
 
+    !! (supersonic)
+    q(icmax+1,:,1:4) = q(icmax,:,1:4)
+ 
     ! second dummy cells equals first dummy cells                        
     q(icmax+2,:,:) = q(icmax+1,:,:)
 
