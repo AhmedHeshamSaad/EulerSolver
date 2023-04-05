@@ -27,10 +27,13 @@ The images below depict Mach contours for mach numbers of 0.3, 0.7 and 0.9.
 Transparent grid lines are also shwon.
 
 M = 0.3
-![M = 0.3](M0p3.jpg?raw=true)
+![M = 0.3](contours/M0p3.jpg?raw=true)
 
 M = 0.7
-![M = 0.7](M0p7.jpg?raw=true)
+![M = 0.7](contours/0p7.png?raw=true)
 
 M = 0.9
-![M = 0.9](M0p9_fine.jpg?raw=true)
+![M = 0.9](contours/0p9.png?raw=true)
+
+M = 1.2
+![M = 1.2](contours/1p2.png?raw=true)
